@@ -35,10 +35,7 @@ export default function DocumentPreview({formData}) {
         style={{aspectRatio: "1 / 1.414"}}
       >
         <header className="mb-8 flex items-center justify-between border-b-2 border-primary pb-5">
-          {/* Reemplazar con el logo institucional: <img src="/path/to/logo.png" alt="Logo UCE" /> */}
-          <div className="flex h-20 w-20 items-center justify-center rounded-full border border-outline-variant bg-white text-center text-[10px] font-bold text-primary">
-            UCE
-          </div>
+          <img src="/logo-uce.png" alt="Logo UCE" className="w-20 h-auto" />
 
           <div className="flex-1 px-4 text-center">
             <h3 className="text-[18px] font-bold uppercase leading-tight text-primary">
@@ -52,10 +49,11 @@ export default function DocumentPreview({formData}) {
             </p>
           </div>
 
-          {/* Lugar para sello institucional (sello o marca de agua). Reemplazar con <img src="/path/to/sello.png" alt="Sello" /> */}
-          <div className="flex h-20 w-20 items-center justify-center rounded-full border border-outline-variant bg-white text-[10px] font-bold text-primary opacity-80">
-            SELLO
-          </div>
+          <img
+            src="/logo-etica.png"
+            alt="Sello Ética"
+            className="w-20 h-auto"
+          />
         </header>
 
         <div className="flex-1 space-y-6 text-[14px] leading-7 text-on-surface">
