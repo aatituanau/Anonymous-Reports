@@ -235,7 +235,7 @@ export default function ComplaintForm({
                   Archivos cargados: {formData.adjuntos.join(", ")}
                 </p>
               ) : null}
-            </div> */}
+            </div> 
 
             <div className="space-y-2">
               <label className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">
@@ -249,7 +249,7 @@ export default function ComplaintForm({
                 rows={4}
                 value={formData.diligencias}
               />
-            </div>
+            </div>*/}
           </section>
 
           <section className="space-y-5 pb-8">

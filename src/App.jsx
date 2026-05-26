@@ -62,9 +62,60 @@ export default function App() {
         if (!value || value.trim().length < 20)
           return "Describa los hechos con al menos 20 caracteres.";
         return "";
+      case "aceptaTerminos":
+        if (!value) return "Debe aceptar los términos para continuar.";
+        return "";
       default:
         return "";
     }
+  };
+
+  const validateAll = () => {
+    const camposRequeridos = [
+      "nombreDenunciante",
+      "identificacion",
+      "correoInstitucional",
+      "facultad",
+      "gravedad",
+      "articuloFalta",
+      "nombreDenunciado",
+      "calidadDenunciado",
+      "descripcionHechos",
+      "aceptaTerminos",
+    ];
+
+    const nuevosErrores = {};
+    camposRequeridos.forEach((campo) => {
+      const valor = formData[campo];
+      const mensaje = validateField(campo, valor);
+      if (mensaje) nuevosErrores[campo] = mensaje;
+    });
+
+    setErrors((prev) => ({...prev, ...nuevosErrores}));
+
+    return Object.keys(nuevosErrores).length === 0;
+  };
+
+  const isFormValid = () => {
+    const camposRequeridos = [
+      "nombreDenunciante",
+      "identificacion",
+      "correoInstitucional",
+      "facultad",
+      "gravedad",
+      "articuloFalta",
+      "nombreDenunciado",
+      "calidadDenunciado",
+      "descripcionHechos",
+      "aceptaTerminos",
+    ];
+
+    for (const campo of camposRequeridos) {
+      const valor = formData[campo];
+      const mensaje = validateField(campo, valor);
+      if (mensaje) return false;
+    }
+    return true;
   };
 
   const handleChange = (event) => {
@@ -109,8 +160,19 @@ export default function App() {
   };
 
   const descargarPdf = async () => {
+    const valido = validateAll();
+    if (!valido) {
+      // Mensaje corto para el usuario; los errores se muestran inline en el formulario
+      alert(
+        "Complete todos los campos obligatorios antes de descargar el PDF.",
+      );
+      return;
+    }
+
     await generarPdfDenuncia();
   };
+
+  const formIsValid = isFormValid();
 
   return (
     <main className="relative flex min-h-screen flex-col overflow-hidden bg-background text-on-surface lg:flex-row">
@@ -130,9 +192,21 @@ export default function App() {
       </div>
 
       <button
-        className="fixed bottom-6 right-6 z-50 flex items-center gap-3 rounded-full bg-primary px-6 py-4 text-sm font-bold text-white shadow-2xl shadow-primary/30 transition hover:-translate-y-1 hover:bg-secondary active:scale-95 sm:right-8 sm:px-8"
+        className={
+          "fixed bottom-6 right-6 z-50 flex items-center gap-3 rounded-full px-6 py-4 text-sm font-bold text-white shadow-2xl transition active:scale-95 sm:right-8 sm:px-8 " +
+          (formIsValid
+            ? "bg-primary hover:-translate-y-1 hover:bg-secondary shadow-primary/30"
+            : "bg-gray-400 cursor-not-allowed opacity-60")
+        }
         onClick={descargarPdf}
         type="button"
+        disabled={!formIsValid}
+        title={
+          !formIsValid
+            ? "Complete todos los campos obligatorios para descargar"
+            : "Descargar PDF Oficial"
+        }
+        aria-disabled={!formIsValid}
       >
         Descargar PDF Oficial
       </button>
