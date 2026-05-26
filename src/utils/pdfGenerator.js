@@ -20,6 +20,7 @@ export function generarPdfDenuncia() {
       scale: 2,
       useCORS: true,
       backgroundColor: "#ffffff",
+      scrollY: 0,
     },
     jsPDF: {
       unit: "mm",

@@ -10,13 +10,13 @@ const gravedadLabels = {
 
 export function BodyPreview({formData, fechaActual, reference}) {
   return (
-    <div className="flex-1 space-y-6 text-[14px] leading-7 text-on-surface">
+    <div className="min-h-0 flex-1 space-y-4 overflow-hidden text-[14px] leading-6 text-on-surface">
       <div className="text-right text-[13px]">
         <p className="font-bold">Quito, D.M., {fechaActual}</p>
         <p>Ref: {reference}</p>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-3">
         <p className="font-bold uppercase">A LA PROCURADURÍA GENERAL,</p>
         <p>
           Yo,{" "}
@@ -44,7 +44,7 @@ export function BodyPreview({formData, fechaActual, reference}) {
           , comparezco y denuncio a:
         </p>
 
-        <p className="mt-4 font-bold uppercase">Datos del denunciado:</p>
+        <p className="mt-2 font-bold uppercase">Datos del denunciado:</p>
         <p>
           Sr./Sra.{" "}
           <span className={labelValueClassName}>
@@ -91,7 +91,7 @@ export function BodyPreview({formData, fechaActual, reference}) {
         <h4 className="border-l-4 border-primary pl-2 text-[15px] font-bold">
           RELACIÓN DE LOS HECHOS
         </h4>
-        <p className="min-h-[160px] whitespace-pre-wrap break-words border-l-2 border-slate-200 bg-slate-50 p-4 text-justify italic text-[14px] text-on-surface-variant">
+        <p className="min-h-[132px] whitespace-pre-wrap break-words border-l-2 border-slate-200 bg-slate-50 p-3 text-justify italic text-[14px] text-on-surface-variant">
           {formData.descripcionHechos ||
             "La descripción detallada del lugar, fecha y circunstancias se visualizará aquí una vez completada."}
         </p>

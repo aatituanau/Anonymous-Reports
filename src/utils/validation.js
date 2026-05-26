@@ -65,7 +65,8 @@ export function validateField(name, value) {
       if (!value) return "La identificación es obligatoria.";
       if (!/^[0-9]+$/.test(value))
         return "La cédula solo debe contener números.";
-      if (value.length < 6) return "Identificación demasiado corta.";
+      if (value.length !== 10)
+        return "La cédula debe tener exactamente 10 dígitos.";
       return "";
     case "correoInstitucional":
       if (!value) return "El correo institucional es obligatorio.";

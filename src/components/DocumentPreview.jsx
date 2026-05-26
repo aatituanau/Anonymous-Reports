@@ -18,14 +18,14 @@ export default function DocumentPreview({formData}) {
     <section className="flex h-full items-start justify-center overflow-y-auto bg-surface-container px-4 py-8 sm:px-8 lg:px-10">
       <div
         id="document-preview"
-        className="flex w-full max-w-[842px] min-h-[297mm] flex-col bg-white p-6 shadow-document sm:p-8 lg:p-10"
+        className="box-border flex h-[297mm] w-full max-w-[842px] flex-col overflow-hidden bg-white p-4 shadow-document sm:p-5 lg:p-6"
       >
         <HeaderPreview
           title={INSTITUTION_NAME}
           subtitle={INSTITUTION_SUBTITLE}
         />
 
-        <div className="flex flex-1 flex-col">
+        <div className="flex min-h-0 flex-1 flex-col">
           <BodyPreview
             formData={formData}
             fechaActual={fechaActual}
