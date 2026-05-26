@@ -1,5 +1,11 @@
 import {APP_TITLE} from "../config";
 import SelectorGravedad from "./SelectorGravedad";
+import FormSection from "./form/FormSection";
+import FieldError from "./form/FieldError";
+import TextField from "./form/TextField";
+import TextAreaField from "./form/TextAreaField";
+import SelectField from "./form/SelectField";
+import TermsBlock from "./form/TermsBlock";
 
 export default function ComplaintForm({
   formData,
@@ -9,6 +15,9 @@ export default function ComplaintForm({
   facultades,
   errors = {},
 }) {
+  const inputClassName =
+    "w-full rounded-lg border border-outline-variant bg-white px-4 py-3 text-sm text-on-surface outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20";
+
   const handleFileChange = (event) => {
     const files = Array.from(event.target.files || []);
     onFieldChange(
@@ -17,15 +26,17 @@ export default function ComplaintForm({
     );
   };
 
-  const inputClassName =
-    "w-full rounded-lg border border-outline-variant bg-white px-4 py-3 text-sm text-on-surface outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20";
-
   return (
-    <section className="flex h-full flex-col border-r border-outline-variant bg-white">
+    <section className="flex h-full flex-col rounded-lg border border-outline-variant bg-white shadow-sm">
       <header className="border-b border-outline-variant bg-white px-6 py-6 lg:px-8">
         <div className="mb-3 flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-md bg-primary text-sm font-bold text-white shadow-lg shadow-primary/20">
-            UCE
+          {/* Logo institucional (sello) */}
+          <div className="flex h-10 w-10 items-center justify-center rounded-md bg-white p-1 shadow-sm">
+            <img
+              src="/logo-etica.png"
+              alt="Sello UCE"
+              className="h-8 w-auto object-contain"
+            />
           </div>
           <div>
             <h1 className="text-2xl font-bold tracking-tight text-primary">
@@ -43,95 +54,57 @@ export default function ComplaintForm({
         </div>
       </header>
 
-      <div className="flex-1 overflow-y-auto px-6 py-8 lg:px-8">
-        <form className="mx-auto flex w-full max-w-2xl flex-col gap-10 pb-24">
-          <section className="space-y-5">
-            <div className="border-b border-outline-variant pb-2">
-              <h2 className="text-sm font-bold uppercase tracking-[0.18em] text-primary">
-                Datos del Denunciante
-              </h2>
-            </div>
-
+      <div className="flex-1 overflow-y-auto px-6 py-6 lg:px-8">
+        <form className="mx-auto flex w-full max-w-3xl flex-col gap-6 pb-12">
+          <FormSection title="Datos del Denunciante">
             <div className="grid gap-4 md:grid-cols-2">
-              <div className="space-y-2">
-                <label className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">
-                  Nombre completo *
-                </label>
-                <input
-                  className={inputClassName}
-                  name="nombreDenunciante"
-                  value={formData.nombreDenunciante}
-                  onChange={onChange}
-                  placeholder="Ej. Juan Pérez"
-                  type="text"
-                />
-                {errors.nombreDenunciante ? (
-                  <p className="text-xs text-red-600">
-                    {errors.nombreDenunciante}
-                  </p>
-                ) : null}
-              </div>
-
-              <div className="space-y-2">
-                <label className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">
-                  Cédula / Pasaporte *
-                </label>
-                <input
-                  className={inputClassName}
-                  name="identificacion"
-                  value={formData.identificacion}
-                  onChange={onChange}
-                  placeholder="1723456789"
-                  type="text"
-                />
-                {errors.identificacion ? (
-                  <p className="text-xs text-red-600">
-                    {errors.identificacion}
-                  </p>
-                ) : null}
-              </div>
-            </div>
-
-            <div className="space-y-2">
-              <label className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">
-                Correo institucional *
-              </label>
-              <input
-                className={inputClassName}
-                name="correoInstitucional"
-                value={formData.correoInstitucional}
+              <TextField
+                label="Nombre completo *"
+                name="nombreDenunciante"
+                value={formData.nombreDenunciante}
                 onChange={onChange}
-                placeholder="usuario@uce.edu.ec"
-                type="email"
+                placeholder="Ej. Juan Pérez"
+                error={errors.nombreDenunciante}
+                className={inputClassName}
               />
-              {errors.correoInstitucional ? (
-                <p className="text-xs text-red-600">
-                  {errors.correoInstitucional}
-                </p>
-              ) : null}
+
+              <TextField
+                label="Cédula / Pasaporte *"
+                name="identificacion"
+                value={formData.identificacion}
+                onChange={onChange}
+                placeholder="1723456789"
+                error={errors.identificacion}
+                className={inputClassName}
+              />
             </div>
 
-            <div className="space-y-2">
-              <label className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">
-                Facultad *
-              </label>
-              <select
-                className={inputClassName}
-                name="facultad"
-                value={formData.facultad}
-                onChange={onChange}
-              >
-                <option value="">Seleccione una facultad</option>
-                {facultades.map((facultad) => (
-                  <option key={facultad} value={facultad}>
-                    {facultad}
-                  </option>
-                ))}
-              </select>
-              {errors.facultad ? (
-                <p className="text-xs text-red-600">{errors.facultad}</p>
-              ) : null}
-            </div>
+            <TextField
+              label="Correo institucional *"
+              name="correoInstitucional"
+              value={formData.correoInstitucional}
+              onChange={onChange}
+              placeholder="usuario@uce.edu.ec"
+              type="email"
+              error={errors.correoInstitucional}
+              className={inputClassName}
+            />
+
+            <SelectField
+              label="Facultad *"
+              name="facultad"
+              value={formData.facultad}
+              onChange={onChange}
+              error={errors.facultad}
+              className={inputClassName}
+            >
+              <option value="">Seleccione una facultad</option>
+              {facultades.map((facultad) => (
+                <option key={facultad} value={facultad}>
+                  {facultad}
+                </option>
+              ))}
+            </SelectField>
 
             <div className="md:col-span-2">
               <SelectorGravedad
@@ -140,81 +113,54 @@ export default function ComplaintForm({
               />
               {errors.gravedad || errors.articuloFalta ? (
                 <div className="mt-2 space-y-1">
-                  {errors.gravedad ? (
-                    <p className="text-xs text-red-600">{errors.gravedad}</p>
-                  ) : null}
-                  {errors.articuloFalta ? (
-                    <p className="text-xs text-red-600">
-                      {errors.articuloFalta}
-                    </p>
-                  ) : null}
+                  <FieldError message={errors.gravedad} />
+                  <FieldError message={errors.articuloFalta} />
                 </div>
               ) : null}
             </div>
-          </section>
+          </FormSection>
 
-          <section className="space-y-5">
-            <div className="border-b border-outline-variant pb-2">
-              <h2 className="text-sm font-bold uppercase tracking-[0.18em] text-primary">
-                Datos del Denunciado
-              </h2>
-            </div>
+          <FormSection title="Datos del Denunciado">
+            <TextField
+              label="Nombre del presunto infractor *"
+              name="nombreDenunciado"
+              value={formData.nombreDenunciado}
+              onChange={onChange}
+              placeholder="Nombre completo"
+              error={errors.nombreDenunciado}
+              className={inputClassName}
+            />
 
-            <div className="space-y-2">
-              <label className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">
-                Nombre del presunto infractor *
-              </label>
-              <input
-                className={inputClassName}
-                name="nombreDenunciado"
-                value={formData.nombreDenunciado}
-                onChange={onChange}
-                placeholder="Nombre completo"
-                type="text"
-              />
-            </div>
+            <SelectField
+              label="Calidad / Cargo *"
+              name="calidadDenunciado"
+              value={formData.calidadDenunciado}
+              onChange={onChange}
+              error={errors.calidadDenunciado}
+              className={inputClassName}
+            >
+              <option value="">Seleccione una opción</option>
+              <option value="estudiante">Estudiante</option>
+              <option value="docente">Docente</option>
+              <option value="autoridad">Autoridad</option>
+              <option value="empleado">Empleado</option>
+              <option value="trabajador">Trabajador</option>
+            </SelectField>
+          </FormSection>
 
-            <div className="space-y-2">
-              <label className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">
-                Calidad / Cargo *
-              </label>
-              <select
-                className={inputClassName}
-                name="calidadDenunciado"
-                value={formData.calidadDenunciado}
-                onChange={onChange}
-              >
-                <option value="">Seleccione una opción</option>
-                <option value="estudiante">Estudiante</option>
-                <option value="docente">Docente</option>
-                <option value="autoridad">Autoridad</option>
-                <option value="empleado">Empleado</option>
-                <option value="trabajador">Trabajador</option>
-              </select>
-            </div>
-          </section>
+          <FormSection title="Relación de los Hechos">
+            <TextAreaField
+              label="Descripción detallada *"
+              name="descripcionHechos"
+              value={formData.descripcionHechos}
+              onChange={onChange}
+              placeholder="Describa detalladamente el lugar, fecha y circunstancias exactas del incidente..."
+              error={errors.descripcionHechos}
+              className={inputClassName + " min-h-[240px] resize-y"}
+            />
 
-          <section className="space-y-5">
-            <div className="border-b border-outline-variant pb-2">
-              <h2 className="text-sm font-bold uppercase tracking-[0.18em] text-primary">
-                Relación de los Hechos
-              </h2>
-            </div>
-
-            <div className="space-y-2">
-              <label className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">
-                Descripción detallada *
-              </label>
-              <textarea
-                className={inputClassName}
-                name="descripcionHechos"
-                onChange={onChange}
-                placeholder="Describa detalladamente el lugar, fecha y circunstancias exactas del incidente..."
-                rows={8}
-                value={formData.descripcionHechos}
-              />
-            </div>
-          </section>
+            <TermsBlock checked={formData.aceptaTerminos} onChange={onChange} />
+          </FormSection>
 
           <section className="space-y-5">
             {/**
@@ -235,7 +181,7 @@ export default function ComplaintForm({
                   Archivos cargados: {formData.adjuntos.join(", ")}
                 </p>
               ) : null}
-            </div> 
+            </div>
 
             <div className="space-y-2">
               <label className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">
@@ -250,22 +196,6 @@ export default function ComplaintForm({
                 value={formData.diligencias}
               />
             </div>*/}
-          </section>
-
-          <section className="space-y-5 pb-8">
-            <div className="flex items-start gap-3 rounded-xl border border-outline-variant bg-background p-4">
-              <input
-                checked={formData.aceptaTerminos}
-                className="mt-1 h-4 w-4 rounded border-outline-variant text-primary focus:ring-primary"
-                name="aceptaTerminos"
-                onChange={onChange}
-                type="checkbox"
-              />
-              <label className="cursor-pointer text-sm leading-6 text-on-surface">
-                Acepto los términos legales y declaro bajo juramento que toda la
-                información proporcionada es verídica y comprobable.
-              </label>
-            </div>
           </section>
         </form>
       </div>
