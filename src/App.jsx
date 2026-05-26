@@ -23,13 +23,22 @@ const estadoInicial = {
 export default function App() {
   const [formData, setFormData] = useState(estadoInicial);
   const [errors, setErrors] = useState({});
+  const [showPreview, setShowPreview] = useState(false);
 
   const validateField = (name, value) => {
     switch (name) {
-      case "nombreDenunciante":
-        if (!value || value.trim().length < 3)
-          return "Ingrese nombre completo válido.";
+      case "nombreDenunciante": {
+        if (!value) return "Ingrese nombre completo.";
+        const texto = value.trim();
+        if (texto.length < 5) return "Nombre demasiado corto.";
+        if (!/^[A-Za-zÀ-ÿ'´`\-\s]+$/.test(texto))
+          return "El nombre no debe contener números ni símbolos.";
+        const partes = texto.split(/\s+/).filter(Boolean);
+        if (partes.length < 2) return "Ingrese al menos nombre y apellido.";
+        if (partes.some((p) => p.length < 2))
+          return "Cada parte del nombre debe tener al menos 2 letras.";
         return "";
+      }
       case "identificacion":
         if (!value) return "La identificación es obligatoria.";
         if (!/^[0-9]+$/.test(value))
@@ -51,10 +60,18 @@ export default function App() {
       case "articuloFalta":
         if (!value) return "Seleccione el artículo o código de falta.";
         return "";
-      case "nombreDenunciado":
-        if (!value || value.trim().length < 3)
-          return "Ingrese nombre del denunciado.";
+      case "nombreDenunciado": {
+        if (!value) return "Ingrese nombre del denunciado.";
+        const textoD = value.trim();
+        if (textoD.length < 5) return "Nombre demasiado corto.";
+        if (!/^[A-Za-zÀ-ÿ'´`\-\s]+$/.test(textoD))
+          return "El nombre no debe contener números ni símbolos.";
+        const partesD = textoD.split(/\s+/).filter(Boolean);
+        if (partesD.length < 2) return "Ingrese al menos nombre y apellido.";
+        if (partesD.some((p) => p.length < 2))
+          return "Cada parte del nombre debe tener al menos 2 letras.";
         return "";
+      }
       case "calidadDenunciado":
         if (!value) return "Seleccione la calidad o cargo.";
         return "";
@@ -176,7 +193,7 @@ export default function App() {
 
   return (
     <main className="relative flex min-h-screen flex-col overflow-hidden bg-background text-on-surface lg:flex-row">
-      <div className="w-full lg:w-1/2">
+      <div className={"w-full " + (showPreview ? "lg:w-1/2" : "lg:w-full")}>
         <ComplaintForm
           facultades={facultades}
           formData={formData}
@@ -187,29 +204,43 @@ export default function App() {
         />
       </div>
 
-      <div className="w-full lg:w-1/2">
-        <DocumentPreview formData={formData} />
-      </div>
+      {showPreview && (
+        <div className="w-full lg:w-1/2">
+          <DocumentPreview formData={formData} />
+        </div>
+      )}
 
-      <button
-        className={
-          "fixed bottom-6 right-6 z-50 flex items-center gap-3 rounded-full px-6 py-4 text-sm font-bold text-white shadow-2xl transition active:scale-95 sm:right-8 sm:px-8 " +
-          (formIsValid
-            ? "bg-primary hover:-translate-y-1 hover:bg-secondary shadow-primary/30"
-            : "bg-gray-400 cursor-not-allowed opacity-60")
-        }
-        onClick={descargarPdf}
-        type="button"
-        disabled={!formIsValid}
-        title={
-          !formIsValid
-            ? "Complete todos los campos obligatorios para descargar"
-            : "Descargar PDF Oficial"
-        }
-        aria-disabled={!formIsValid}
-      >
-        Descargar PDF Oficial
-      </button>
+      <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3">
+        <button
+          onClick={() => setShowPreview((v) => !v)}
+          type="button"
+          className="rounded-full bg-secondary px-4 py-2 text-sm font-semibold text-white shadow-md hover:brightness-95"
+          title={showPreview ? "Ocultar vista previa" : "Ver PDF"}
+          aria-pressed={showPreview}
+        >
+          {showPreview ? "Ocultar PDF" : "Ver PDF"}
+        </button>
+
+        <button
+          className={
+            "flex items-center gap-3 rounded-full px-6 py-4 text-sm font-bold text-white shadow-2xl transition active:scale-95 sm:px-8 " +
+            (formIsValid
+              ? "bg-primary hover:-translate-y-1 hover:bg-secondary shadow-primary/30"
+              : "bg-gray-400 cursor-not-allowed opacity-60")
+          }
+          onClick={descargarPdf}
+          type="button"
+          disabled={!formIsValid}
+          title={
+            !formIsValid
+              ? "Complete todos los campos obligatorios para descargar"
+              : "Descargar PDF Oficial"
+          }
+          aria-disabled={!formIsValid}
+        >
+          Descargar PDF Oficial
+        </button>
+      </div>
     </main>
   );
 }
