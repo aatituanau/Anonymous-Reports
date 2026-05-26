@@ -12,14 +12,11 @@ export function FooterPreview({formData}) {
             <EmptyValue>________________________</EmptyValue>
           )}
         </p>
-        <p className="text-[12px] text-on-surface-variant italic">
-          (Nombre del denunciante según formulario)
-        </p>
+        <br />
       </div>
 
       <footer className="mt-auto flex justify-between border-t border-outline-variant pt-4 text-[9px] font-bold uppercase text-outline">
         <span>Proceso: Régimen Disciplinario</span>
-        <span>Página 01 de 01</span>
       </footer>
     </div>
   );

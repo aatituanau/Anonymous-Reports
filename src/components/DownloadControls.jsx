@@ -29,7 +29,7 @@ export default function DownloadControls({
         title={downloadEnabled ? "Descargar PDF Oficial" : disabledReason}
         aria-disabled={!downloadEnabled}
       >
-        Descargar PDF Oficial
+        Descargar PDF
       </button>
     </div>
   );

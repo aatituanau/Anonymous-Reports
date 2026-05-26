@@ -1,7 +1,6 @@
 export function HeaderPreview({leftLogo, rightLogo, title, subtitle}) {
   return (
     <header className="mb-8 flex items-center justify-between border-b-2 border-primary pb-5">
-      {/* Left logo - reemplazar por el logo institucional */}
       <img
         src={leftLogo || "/logo-uce.png"}
         alt="Logo UCE"
@@ -19,8 +18,6 @@ export function HeaderPreview({leftLogo, rightLogo, title, subtitle}) {
           "Omnium Potentior Est Sapientia"
         </p>
       </div>
-
-      {/* Right seal/sello - reemplazar por sello institucional */}
       <img
         src={rightLogo || "/logo-etica.png"}
         alt="Sello Ética"

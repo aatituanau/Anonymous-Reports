@@ -161,42 +161,6 @@ export default function ComplaintForm({
 
             <TermsBlock checked={formData.aceptaTerminos} onChange={onChange} />
           </FormSection>
-
-          <section className="space-y-5">
-            {/**
-            <div className="border-b border-outline-variant pb-2">
-              <h2 className="text-sm font-bold uppercase tracking-[0.18em] text-primary">
-                Anuncio de Pruebas
-              </h2>
-            </div>
-
-            <div className="space-y-2">
-              <label className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">
-                Prueba documental (adjuntos)
-              </label>
-              Campo de adjuntos comentado — uso para pruebas/pruebas de evidencia. No activado en esta versión.
-               <input className="w-full cursor-pointer rounded-lg border border-outline-variant bg-white px-4 py-3 text-sm text-on-surface file:mr-4 file:rounded-full file:border-0 file:bg-primary file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white hover:file:bg-secondary" multiple onChange={handleFileChange} type="file" />
-              {formData.adjuntos.length > 0 ? (
-                <p className="text-xs text-on-surface-variant">
-                  Archivos cargados: {formData.adjuntos.join(", ")}
-                </p>
-              ) : null}
-            </div>
-
-            <div className="space-y-2">
-              <label className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">
-                Diligencias probatorias solicitadas
-              </label>
-              <textarea
-                className={inputClassName}
-                name="diligencias"
-                onChange={onChange}
-                placeholder="Ej. Solicito revisión de cámaras de seguridad del pasillo B..."
-                rows={4}
-                value={formData.diligencias}
-              />
-            </div>*/}
-          </section>
         </form>
       </div>
     </section>

@@ -89,32 +89,13 @@ export function BodyPreview({formData, fechaActual, reference}) {
 
       <div className="space-y-2">
         <h4 className="border-l-4 border-primary pl-2 text-[15px] font-bold">
-          I. RELACIÓN DE LOS HECHOS
+          RELACIÓN DE LOS HECHOS
         </h4>
         <p className="min-h-[160px] whitespace-pre-wrap break-words border-l-2 border-slate-200 bg-slate-50 p-4 text-justify italic text-[14px] text-on-surface-variant">
           {formData.descripcionHechos ||
             "La descripción detallada del lugar, fecha y circunstancias se visualizará aquí una vez completada."}
         </p>
       </div>
-
-      {/* II. Anuncio de pruebas: solo si hay datos */}
-      {(Array.isArray(formData.adjuntos) && formData.adjuntos.length > 0) ||
-      formData.diligencias ? (
-        <div className="space-y-2">
-          <h4 className="border-l-4 border-primary pl-2 text-[15px] font-bold">
-            II. ANUNCIO DE PRUEBAS
-          </h4>
-          {Array.isArray(formData.adjuntos) && formData.adjuntos.length > 0 ? (
-            <p className="text-sm text-on-surface-variant">{`Adjuntos declarados: ${formData.adjuntos.join(", ")}`}</p>
-          ) : null}
-
-          {formData.diligencias ? (
-            <p className="rounded-lg border border-outline-variant bg-white p-3 text-[13px] text-on-surface-variant">
-              <strong>Diligencias solicitadas:</strong> {formData.diligencias}
-            </p>
-          ) : null}
-        </div>
-      ) : null}
     </div>
   );
 }
