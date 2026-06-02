@@ -22,6 +22,7 @@ const estadoInicial = {
   nombreDenunciado: "",
   calidadDenunciado: "",
   descripcionHechos: "",
+  medidasReparacion: "",
   diligencias: "",
   adjuntos: [],
   aceptaTerminos: false,

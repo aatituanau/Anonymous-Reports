@@ -27,18 +27,23 @@ export const requiredFields = [
   },
   {
     name: "nombreDenunciado",
-    section: "Datos del Denunciado",
+    section: "Relación de los Hechos",
     label: "Nombre del presunto infractor",
   },
   {
     name: "calidadDenunciado",
-    section: "Datos del Denunciado",
+    section: "Relación de los Hechos",
     label: "Calidad / Cargo",
   },
   {
     name: "descripcionHechos",
     section: "Relación de los Hechos",
     label: "Descripción detallada",
+  },
+  {
+    name: "medidasReparacion",
+    section: "Medidas de Reparación",
+    label: "Medidas de reparación solicitadas",
   },
   {
     name: "aceptaTerminos",
@@ -102,6 +107,10 @@ export function validateField(name, value) {
     case "descripcionHechos":
       if (!value || value.trim().length < 20)
         return "Describa los hechos con al menos 20 caracteres.";
+      return "";
+    case "medidasReparacion":
+      if (!value || value.trim().length < 10)
+        return "Detalle las medidas de reparación solicitadas (mínimo 10 caracteres).";
       return "";
     case "aceptaTerminos":
       if (!value) return "Debe aceptar los términos para continuar.";
