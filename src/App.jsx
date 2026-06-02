@@ -101,9 +101,19 @@ export default function App() {
     const missingItems = buildMissingItems(formData);
 
     if (missingItems.length > 0) {
+      // Force validate all fields to highlight them in red
+      const newErrors = { ...errors };
+      Object.keys(formData).forEach(key => {
+        const msg = validateField(key, formData[key]);
+        if (msg) newErrors[key] = msg;
+      });
+      if (!formData.gravedad) newErrors.gravedad = validateField("gravedad", "");
+      if (!formData.articuloFalta) newErrors.articuloFalta = validateField("articuloFalta", "");
+      
+      setErrors(newErrors);
       setDownloadMissingItems(missingItems);
       setDownloadNotice(
-        "No se puede generar el PDF todavía. Falta completar lo siguiente:",
+        "Faltan campos obligatorios",
       );
       return;
     }
@@ -116,28 +126,31 @@ export default function App() {
   const downloadEnabled = isFormValid(formData);
 
   return (
-    <main className="relative flex h-screen flex-col overflow-hidden bg-background text-on-surface lg:flex-row">
-      <div
-        className={
-          "h-full w-full overflow-hidden " +
-          (showPreview ? "lg:w-3/5" : "lg:mx-auto lg:w-11/12")
-        }
-      >
-        <ComplaintForm
-          facultades={facultades}
-          formData={formData}
-          onChange={handleChange}
-          onGravedadChange={handleGravedadChange}
-          onFieldChange={handleFieldChange}
-          errors={errors}
-        />
-      </div>
+    <main className="relative flex h-screen w-full flex-col overflow-hidden text-on-surface bg-slate-50">
+      <div className="relative flex h-full w-full flex-col lg:flex-row">
+        <div
+          className={
+            "h-full w-full overflow-hidden p-4 lg:p-8 " +
+            (showPreview ? "lg:w-3/5" : "lg:mx-auto lg:w-[85%]")
+          }
+        >
+          <ComplaintForm
+            facultades={facultades}
+            formData={formData}
+            onChange={handleChange}
+            onGravedadChange={handleGravedadChange}
+            onFieldChange={handleFieldChange}
+            errors={errors}
+          />
+        </div>
 
       {showPreview && (
         <div className="h-full w-full overflow-hidden border-l border-outline-variant lg:w-2/5">
           <DocumentPreview formData={formData} />
         </div>
       )}
+
+      </div>
 
       <DownloadControls
         onTogglePreview={() => setShowPreview((v) => !v)}
@@ -151,6 +164,7 @@ export default function App() {
         visible={!downloadEnabled && Boolean(downloadNotice)}
         title={downloadNotice}
         items={downloadMissingItems}
+        onClose={() => setDownloadNotice("")}
       />
     </main>
   );

@@ -14,7 +14,7 @@ export default function SelectField({
     <div className="space-y-2">
       <FieldLabel>{label}</FieldLabel>
       <select
-        className={className}
+        className={`${className} ${error ? '!border-red-500 !ring-red-500/20' : ''}`}
         name={name}
         value={value}
         onChange={onChange}

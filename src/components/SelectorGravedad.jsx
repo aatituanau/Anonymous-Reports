@@ -54,7 +54,7 @@ const catalogoFaltas = {
   ],
 };
 
-export default function SelectorGravedad({onSelectionChange, inputClassName}) {
+export default function SelectorGravedad({onSelectionChange, inputClassName, errorGravedad, errorArticulo}) {
   const [gravedad, setGravedad] = useState("");
   const [articulo, setArticulo] = useState("");
 
@@ -95,7 +95,7 @@ export default function SelectorGravedad({onSelectionChange, inputClassName}) {
           Gravedad de la infracción *
         </label>
         <select
-          className={inputClassName}
+          className={`${inputClassName} ${errorGravedad ? '!border-red-500 !ring-red-500/20' : ''}`}
           name="gravedad"
           onChange={handleGravedadChange}
           value={gravedad}
@@ -112,7 +112,7 @@ export default function SelectorGravedad({onSelectionChange, inputClassName}) {
           Artículo / Código de falta *
         </label>
         <select
-          className={inputClassName}
+          className={`${inputClassName} ${errorArticulo ? '!border-red-500 !ring-red-500/20' : ''}`}
           disabled={!gravedad}
           name="articulo"
           onChange={handleArticuloChange}
