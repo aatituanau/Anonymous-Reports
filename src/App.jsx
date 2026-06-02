@@ -130,8 +130,8 @@ export default function App() {
       <div className="relative flex h-full w-full flex-col lg:flex-row">
         <div
           className={
-            "h-full w-full overflow-hidden p-4 lg:p-8 " +
-            (showPreview ? "lg:w-3/5" : "lg:mx-auto lg:w-[85%]")
+            "h-full w-full overflow-hidden p-2 lg:p-4 " +
+            (showPreview ? "lg:w-3/5" : "lg:w-full")
           }
         >
           <ComplaintForm
@@ -144,11 +144,12 @@ export default function App() {
           />
         </div>
 
-      {showPreview && (
-        <div className="h-full w-full overflow-hidden border-l border-outline-variant lg:w-2/5">
-          <DocumentPreview formData={formData} />
-        </div>
-      )}
+      <div className={showPreview 
+        ? "h-full w-full overflow-hidden border-l border-slate-200 lg:w-2/5 shrink-0" 
+        : "absolute -left-[9999px] opacity-0 pointer-events-none"
+      }>
+        <DocumentPreview formData={formData} />
+      </div>
 
       </div>
 

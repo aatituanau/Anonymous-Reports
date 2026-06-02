@@ -51,8 +51,8 @@ export default function ComplaintForm({
         </div>
       </header>
 
-      <div className="flex-1 overflow-y-auto overscroll-contain px-6 py-8 lg:px-10 custom-scrollbar">
-        <form className="mx-auto flex w-full max-w-3xl flex-col gap-8 pb-16">
+      <div className="flex-1 overflow-y-auto overscroll-contain px-4 py-6 lg:px-8 custom-scrollbar">
+        <form className="mx-auto flex w-full max-w-4xl flex-col gap-8 pb-16">
           <div>
             <FormSection title="Datos del Denunciante">
               <div className="grid gap-5 md:grid-cols-2">

@@ -15,10 +15,10 @@ export default function DocumentPreview({formData}) {
   });
 
   return (
-    <section className="flex h-full items-start justify-center overflow-y-auto bg-surface-container px-4 py-8 sm:px-8 lg:px-10">
+    <section className="flex h-full items-start justify-center overflow-y-auto bg-slate-100 px-4 py-8 sm:px-8 lg:px-10 custom-scrollbar">
       <div
         id="document-preview"
-        className="box-border flex h-[297mm] w-full max-w-[842px] flex-col overflow-hidden bg-white p-4 shadow-document sm:p-5 lg:p-6"
+        className="box-border flex h-[296mm] w-full max-w-[842px] flex-col overflow-hidden bg-white p-6 shadow-md"
       >
         <HeaderPreview
           title={INSTITUTION_NAME}

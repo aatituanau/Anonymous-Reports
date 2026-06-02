@@ -10,24 +10,31 @@ export function generarPdfDenuncia() {
   }
 
   const opciones = {
-    margin: 0,
+    margin: [0, 0, 0, 0], // Sin márgenes extras para no desbordar
     filename: "denuncia-uce.pdf",
     image: {
       type: "jpeg",
-      quality: 1,
+      quality: 0.98,
     },
     html2canvas: {
-      scale: 2,
+      scale: 2, // Buena calidad
       useCORS: true,
       backgroundColor: "#ffffff",
       scrollY: 0,
+      windowWidth: document.documentElement.offsetWidth,
     },
     jsPDF: {
       unit: "mm",
       format: "a4",
       orientation: "portrait",
     },
+    pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
   };
 
-  return html2pdf().set(opciones).from(elemento).save();
+  // Se añade un pequeño retardo para asegurar que la UI se actualiza si estaba oculta
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      html2pdf().set(opciones).from(elemento).save().then(resolve);
+    }, 150);
+  });
 }
