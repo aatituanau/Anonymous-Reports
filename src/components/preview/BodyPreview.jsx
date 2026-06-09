@@ -16,7 +16,12 @@ export function BodyPreview({formData, fechaActual, reference}) {
       </div>
 
       <div className="space-y-3">
-        <p className="font-bold uppercase">CÓDIGO DE ÉTICA,</p>
+        <p className="font-bold">
+          Doctor<br/>
+          Marco Medina Vega<br/>
+          PRESIDENTE DEL COMITÉ DE ÉTICA<br/>
+          Presente.-
+        </p>
         <p>
           Yo,{" "}
           <span className={labelValueClassName}>
@@ -36,7 +41,7 @@ export function BodyPreview({formData, fechaActual, reference}) {
               <EmptyValue>________________</EmptyValue>
             )}
           </span>
-          , facultad{" "}
+          , facultad o dependencia{" "}
           <span className={labelValueClassName}>
             {formData.facultad || <EmptyValue>________________</EmptyValue>}
           </span>

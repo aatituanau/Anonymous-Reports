@@ -89,14 +89,14 @@ export default function ComplaintForm({
               />
 
               <SelectField
-                label="Facultad *"
+                label="Facultad o Dependencia *"
                 name="facultad"
                 value={formData.facultad}
                 onChange={onChange}
                 error={errors.facultad}
                 className={inputClassName}
               >
-                <option value="">Seleccione una facultad</option>
+                <option value="">Seleccione una facultad o dependencia</option>
                 {facultades.map((facultad) => (
                   <option key={facultad} value={facultad}>
                     {facultad}

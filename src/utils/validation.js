@@ -12,9 +12,13 @@ export const requiredFields = [
   {
     name: "correoInstitucional",
     section: "Datos del Denunciante",
-    label: "Correo institucional",
+    label: "Correo Institucional",
   },
-  {name: "facultad", section: "Datos del Denunciante", label: "Facultad"},
+  {
+    name: "facultad",
+    section: "Datos del Denunciante",
+    label: "Facultad o Dependencia",
+  },
   {
     name: "gravedad",
     section: "Gravedad de la falta",
@@ -27,8 +31,8 @@ export const requiredFields = [
   },
   {
     name: "nombreDenunciado",
-    section: "Relación de los Hechos",
-    label: "Nombre del presunto infractor",
+    section: "Datos del Denunciado",
+    label: "Nombre del Denunciado",
   },
   {
     name: "calidadDenunciado",
@@ -81,7 +85,7 @@ export function validateField(name, value) {
         return "El correo debe pertenecer al dominio @uce.edu.ec.";
       return "";
     case "facultad":
-      if (!value) return "Seleccione la facultad.";
+      if (!value) return "Seleccione la facultad o dependencia.";
       return "";
     case "gravedad":
       if (!value) return "Seleccione el nivel de gravedad.";
