@@ -43,7 +43,9 @@ export function BodyPreview({formData, fechaActual, reference}) {
           </span>
           , facultad o dependencia{" "}
           <span className={labelValueClassName}>
-            {formData.facultad || <EmptyValue>________________</EmptyValue>}
+            {formData.facultad 
+              ? (formData.facultad === "PLANTA CENTRAL" ? `PLANTA CENTRAL - ${formData.dependenciaEspecifica?.toUpperCase() || ""}` : formData.facultad) 
+              : <EmptyValue>________________</EmptyValue>}
           </span>
           , comparezco y expongo:
         </p>

@@ -103,6 +103,18 @@ export default function ComplaintForm({
                   </option>
                 ))}
               </SelectField>
+
+              {formData.facultad === "PLANTA CENTRAL" && (
+                <TextField
+                  label="Especifique a qué dependencia pertenece *"
+                  name="dependenciaEspecifica"
+                  value={formData.dependenciaEspecifica || ""}
+                  onChange={onChange}
+                  error={errors.dependenciaEspecifica}
+                  className={inputClassName}
+                  placeholder="Ej. Dirección de Bienestar Estudiantil"
+                />
+              )}
             </FormSection>
           </div>
 

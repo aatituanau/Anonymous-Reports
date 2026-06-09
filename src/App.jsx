@@ -16,6 +16,7 @@ const estadoInicial = {
   identificacion: "",
   correoInstitucional: "",
   facultad: "",
+  dependenciaEspecifica: "",
   gravedad: "",
   articuloFalta: "",
   descripcionArticuloFalta: "",

@@ -1,4 +1,5 @@
 export const facultades = [
+  "PLANTA CENTRAL",
   "Facultad de Arquitectura y Urbanismo",
   "Facultad de Artes",
   "Facultad de Ciencias Agrícolas",

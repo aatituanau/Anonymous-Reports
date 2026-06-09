@@ -20,6 +20,11 @@ export const requiredFields = [
     label: "Facultad o Dependencia",
   },
   {
+    name: "dependenciaEspecifica",
+    section: "Datos del Denunciante",
+    label: "Especifique Dependencia",
+  },
+  {
     name: "gravedad",
     section: "Gravedad de la falta",
     label: "Nivel de gravedad",
@@ -87,6 +92,9 @@ export function validateField(name, value) {
     case "facultad":
       if (!value) return "Seleccione la facultad o dependencia.";
       return "";
+    case "dependenciaEspecifica":
+      if (!value) return "Especifique a qué dependencia de Planta Central pertenece.";
+      return "";
     case "gravedad":
       if (!value) return "Seleccione el nivel de gravedad.";
       return "";
@@ -126,6 +134,9 @@ export function validateField(name, value) {
 
 export function buildMissingItems(formData) {
   return requiredFields.reduce((items, field) => {
+    if (field.name === "dependenciaEspecifica" && formData.facultad !== "PLANTA CENTRAL") {
+      return items;
+    }
     const message = validateField(field.name, formData[field.name]);
     if (message) {
       items.push({
